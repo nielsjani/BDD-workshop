@@ -10,7 +10,7 @@ public class Player {
     private final UUID id;
     private PlayerResources resources;
     private final List<OutpostComponent> outpostRooms;
-    private final int remainingActions;
+    private int remainingActions;
 
     public Player(UUID id, int remainingActions) {
         this.id = id;
@@ -20,17 +20,45 @@ public class Player {
     }
 
     public void gatherResources(PlayerResources extraResources) {
+        assertActionsRemaining();
         if(hasGatheredAllowedAmountOf(extraResources)) {
             this.resources = this.resources.mergeWith(extraResources);
+            remainingActions--;
+        } else {
+            throw new IllegalArgumentException("Should gather exactly 2 resources");
         }
     }
 
     public void addOutpostRoom(OutpostComponent purchasedRoom) {
+        assertActionsRemaining();
         this.outpostRooms.add(purchasedRoom);
         this.resources = this.resources.subtract(purchasedRoom.constructionCost());
+        remainingActions--;
+    }
+
+    private void assertActionsRemaining() {
+        if(this.remainingActions <= 0) {
+            throw new IllegalStateException("No actions remaining");
+        }
     }
 
     private boolean hasGatheredAllowedAmountOf(PlayerResources extraResources) {
         return extraResources.getSum() == 2;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public PlayerResources getResources() {
+        return resources;
+    }
+
+    public List<OutpostComponent> getOutpostRooms() {
+        return outpostRooms;
+    }
+
+    public int getRemainingActions() {
+        return remainingActions;
     }
 }
