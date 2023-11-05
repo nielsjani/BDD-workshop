@@ -3,10 +3,8 @@ package be.awesome.bddworkshop.testrepository;
 import be.awesome.bddworkshop.fabricator.FabricatorRepository;
 import be.awesome.bddworkshop.fabricator.OutpostComponent;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FabricatorTestRepository implements FabricatorRepository {
 
@@ -17,7 +15,7 @@ public class FabricatorTestRepository implements FabricatorRepository {
     }
 
     @Override
-    public void saveAll(List<OutpostComponent> newComponents) {
+    public void saveAll(Set<OutpostComponent> newComponents) {
         newComponents.forEach(newComponent -> outpostComponents.put(newComponent.id(), newComponent));
     }
 
@@ -34,5 +32,9 @@ public class FabricatorTestRepository implements FabricatorRepository {
     @Override
     public void remove(UUID outpostComponentId) {
         outpostComponents.remove(outpostComponentId);
+    }
+
+    public Set<OutpostComponent> getAll() {
+        return new HashSet<>(outpostComponents.values());
     }
 }

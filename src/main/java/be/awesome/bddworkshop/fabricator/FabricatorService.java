@@ -1,6 +1,6 @@
 package be.awesome.bddworkshop.fabricator;
 
-import java.util.List;
+import java.util.Set;
 
 //Imaginary Spring annotation here
 public class FabricatorService {
@@ -11,7 +11,10 @@ public class FabricatorService {
         this.repository = repository;
     }
 
-    void printNewBatch(List<OutpostComponent> components) {
+    public void printNewBatch(Set<OutpostComponent> components) {
+        if(components.isEmpty()) {
+            throw new IllegalStateException("No components passed to fabricator");
+        }
         repository.clearInventory();
         repository.saveAll(components);
     }
