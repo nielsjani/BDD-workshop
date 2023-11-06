@@ -18,3 +18,7 @@ Go over your test code. Did you make optimal use of Cucumber's features like:
 - DataTable types
 
 If not, try to refactor for better reusability
+
+Also, I lied. There is at least 1 bug and 1 exploit in this code. Did your tests find them?
+
+Hint: the bug is in the Player.addOutpostRoom and the exploit is in Player.gatherResources
