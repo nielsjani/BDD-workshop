@@ -31,8 +31,8 @@ public class Player {
 
     public void addOutpostRoom(OutpostComponent purchasedRoom) {
         assertActionsRemaining();
-        this.outpostRooms.add(purchasedRoom);
         this.resources = this.resources.subtract(purchasedRoom.constructionCost());
+        this.outpostRooms.add(purchasedRoom);
         remainingActions--;
     }
 
